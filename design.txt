@@ -1,0 +1,20 @@
+db
+
+user
+id, first name, last name, email, user role (PAL | MEMBER), monthly allocation
+
+visit
+id, member id, date, minutes, tasks
+
+transaction
+id, member, pal, visit
+
+requests
+id, requestor id, fulfilled, transaction
+
+initial thoughts and decisions:
+we would be better off splitting monthly allocations off from the user table (this isn't normalized since pals theoretically don't have allocations, but we'd have a single two entry table and may not be worth depending on scale), especially because transactions should grow at a much faster rate than users
+for ease of implementation for "v0" we can just use an aggregation off of visits
+initially leaving the modeled foreign keys as ints rather than letting JPA do the joins for me
+going to let tasks begin as just a string and allow members to add whatever they want there
+we don't really need member id on the visit, but it'll make calculating remaining allocation easier
