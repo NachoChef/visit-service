@@ -9,7 +9,7 @@ id, member id, date, minutes, tasks
 transaction
 id, member, pal, visit
 
-requests
+visit requests
 id, requestor id, fulfilled, transaction
 
 initial thoughts and decisions:

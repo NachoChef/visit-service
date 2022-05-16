@@ -30,6 +30,6 @@ public class Transaction {
     @Column(name = "pal_id")
     private int palId;
 
-    @Column(name = "visit_id")
-    private int visitId;
+    @Column(name = "visit_request_id")
+    private int visitRequestId;
 }

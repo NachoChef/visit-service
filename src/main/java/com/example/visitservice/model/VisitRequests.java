@@ -17,8 +17,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter
 @Entity
-@Table(name = "requests")
-public class Requests {
+@Table(name = "visit_requests")
+public class VisitRequests {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
