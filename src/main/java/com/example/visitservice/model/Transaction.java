@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDate;
 
 /**
  * Transaction entity, models transactions between members and pals with a reference to a given {@link Visit}
@@ -32,4 +33,10 @@ public class Transaction {
 
     @Column(name = "visit_request_id")
     private int visitRequestId;
+
+    @Column(name = "visit_id")
+    private int visitId;
+
+    @Column(name = "visit_date")
+    private LocalDate visitDate;
 }
