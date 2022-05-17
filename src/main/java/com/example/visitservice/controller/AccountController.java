@@ -48,14 +48,21 @@ public class AccountController {
 
     @GetMapping("/{id}")
     public ResponseEntity<String> getUserInfo(@PathVariable String id) {
-        return userRepository.findById(Integer.valueOf(id))
-                .map((u) -> {
-                    try {
-                        return ResponseEntity.ok(objectMapper.writeValueAsString(u));
-                    } catch (JsonProcessingException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
-                .orElse(ResponseEntity.notFound().build());
+        // this is easier for now than custom error binding/etc
+        try {
+            return userRepository.findById(Integer.valueOf(id))
+                    .map((u) -> {
+                        try {
+                            return ResponseEntity.ok(objectMapper.writeValueAsString(u));
+                        } catch (JsonProcessingException e) {
+                            throw new RuntimeException(e);
+                        }
+                    })
+                    .orElse(ResponseEntity.notFound().build());
+        } catch (NumberFormatException nfe) {
+            return ResponseEntity.badRequest().build();
+        }
+
+
     }
 }

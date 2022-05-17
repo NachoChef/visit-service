@@ -118,10 +118,16 @@ class AccountControllerTest {
 
     @Test
     void getUserInfo_returnsNullWhenDoesntExist() throws Exception {
-        Mockito.when(mockRepository.findById(ArgumentMatchers.eq(1))).thenReturn(null);
+        Mockito.when(mockRepository.findById(ArgumentMatchers.any())).thenReturn(null);
 
         mockMvc.perform(get("/account/6"))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void getUserInfo_400WhenIdIsNotInt() throws Exception {
+        mockMvc.perform(get("/account/abc"))
+                .andExpect(status().isBadRequest());
     }
 
     private UserRequest userRequest() {
