@@ -18,6 +18,7 @@ for ease of implementation for "v0" we can just use an aggregation off of visits
 initially leaving the modeled foreign keys as ints rather than letting JPA do the joins for me
 going to let tasks begin as just a string and allow members to add whatever they want there
 we don't really need member id on the visit, but it'll make calculating remaining allocation easier
+I'm going to ignore passwords for now :)
 
 
 Members request Visits through a Visit Request

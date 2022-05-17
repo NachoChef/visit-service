@@ -1,6 +1,8 @@
 package com.example.visitservice.model;
 
+import com.example.visitservice.request.UserRequest;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.Column;
@@ -18,6 +20,7 @@ import static javax.persistence.GenerationType.AUTO;
  */
 @AllArgsConstructor
 @Getter
+@Builder
 @Entity
 @Table(name="users")
 public class User {
@@ -43,6 +46,13 @@ public class User {
         }
     }
 
+    /**
+     * So this is obviously making an assumption that we have a default allocation that we always set,
+     * which is probably fine for these purposes (also assuming insurance provides some standard XX hours monthly)
+     * but we could also easily figure this out based on provider/etc
+     */
+    public static final double DEFAULT_ALLOCATION = 40.0;
+
     @Id
     @GeneratedValue(strategy = AUTO)
     private int id;
@@ -61,4 +71,27 @@ public class User {
 
     @Column(name = "monthly_allocation")
     private double monthlyAllocation;
+
+    /**
+     * Create a User entity from a given request with the {@link User#DEFAULT_ALLOCATION} monthly allocation
+     *
+     * @param userRequest the incoming request we want to convert
+     * @param userRole the user role we want to specify
+     * @return a user Entity conforming to the supplied request, role and default allocation
+     */
+    public static User fromUserRequestAndRole(UserRequest userRequest, User.UserRole userRole) {
+        User.UserBuilder builder = User.builder()
+                .firstName(userRequest.getFirstName())
+                .lastName(userRequest.getLastName())
+                .email(userRequest.getEmail())
+                .userRole(userRole);
+
+        if (userRole.equals(UserRole.MEMBER)) {
+            builder.monthlyAllocation(DEFAULT_ALLOCATION);
+        } else {
+            builder.monthlyAllocation(0.0);
+        }
+
+        return builder.build();
+    }
 }
