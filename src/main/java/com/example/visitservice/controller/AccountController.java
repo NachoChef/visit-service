@@ -62,7 +62,5 @@ public class AccountController {
         } catch (NumberFormatException nfe) {
             return ResponseEntity.badRequest().build();
         }
-
-
     }
 }
