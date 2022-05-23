@@ -69,11 +69,11 @@ public class User {
     @Column(name = "user_role")
     private UserRole userRole;
 
-    @Column(name = "monthly_allocation")
-    private double monthlyAllocation;
+    @Column(name = "balance")
+    private double balance;
 
     /**
-     * Create a User entity from a given request with the {@link User#DEFAULT_ALLOCATION} monthly allocation
+     * Create a User entity from a given request with the {@link User#DEFAULT_ALLOCATION} balance
      *
      * @param userRequest the incoming request we want to convert
      * @param userRole the user role we want to specify
@@ -87,9 +87,9 @@ public class User {
                 .userRole(userRole);
 
         if (userRole.equals(UserRole.MEMBER)) {
-            builder.monthlyAllocation(DEFAULT_ALLOCATION);
+            builder.balance(DEFAULT_ALLOCATION);
         } else {
-            builder.monthlyAllocation(0.0);
+            builder.balance(0.0);
         }
 
         return builder.build();

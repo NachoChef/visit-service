@@ -14,4 +14,6 @@ public class NewVisitRequest {
     @NotNull(message = "Requestor id must be present!")
     @NumberFormat
     private int requestorId;
+
+    private String tasksRequested;
 }

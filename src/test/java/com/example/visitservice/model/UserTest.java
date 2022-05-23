@@ -34,7 +34,7 @@ class UserTest {
         assertEquals(expected.getLastName(), actual.getLastName());
         assertEquals(expected.getEmail(), actual.getEmail());
         assertEquals(User.UserRole.MEMBER, actual.getUserRole());
-        assertEquals(User.DEFAULT_ALLOCATION, actual.getMonthlyAllocation());
+        assertEquals(User.DEFAULT_ALLOCATION, actual.getBalance());
         assertEquals(0, expected.getId());
     }
 
@@ -59,7 +59,7 @@ class UserTest {
         assertEquals(expected.getLastName(), actual.getLastName());
         assertEquals(expected.getEmail(), actual.getEmail());
         assertEquals(User.UserRole.PAL, actual.getUserRole());
-        assertEquals(0.0, actual.getMonthlyAllocation());
+        assertEquals(0.0, actual.getBalance());
         assertEquals(0, expected.getId());
     }
 }

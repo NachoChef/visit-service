@@ -42,6 +42,9 @@ public class VisitRequest {
     @Column(name = "active", columnDefinition = "tinyint(1) default 1")
     private boolean active;
 
+    @Column(name = "tasks_requested")
+    private String tasksRequested;
+
     @PrePersist
     private void prePersist() {
         requestedDate = LocalDate.now().toEpochDay();
@@ -55,6 +58,7 @@ public class VisitRequest {
     public static VisitRequest fromRequest(NewVisitRequest newVisitRequest) {
         return VisitRequest.builder()
                 .requestorId(newVisitRequest.getRequestorId())
+                .tasksRequested(newVisitRequest.getTasksRequested())
                 .build();
     }
 }

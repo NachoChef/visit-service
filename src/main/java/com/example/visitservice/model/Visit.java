@@ -8,11 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import java.time.LocalDate;
 
 /**
- * Visit entity, models visits between members and pals that are recorded as a {@link Transaction}
+ * Visit entity, models visits between members and pals that are recorded as a {@link TransactionLine}
  *
  * @author justinjones
  */
@@ -28,12 +29,20 @@ public class Visit {
     @Column(name = "member_id")
     private int memberId;
 
+    @Column(name = "pal_id")
+    private int palId;
+
     @Column(name = "date")
-    private LocalDate date;
+    private long date;
 
     @Column(name = "duration")
     private double duration;
 
     @Column(name = "tasks")
     private String tasks;
+
+    @PrePersist
+    private void prePersist() {
+        date = LocalDate.now().toEpochDay();
+    }
 }

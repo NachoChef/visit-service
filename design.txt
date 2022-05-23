@@ -1,16 +1,16 @@
 db
 
 user
-id, first name, last name, email, user role (PAL | MEMBER), monthly allocation
+id, first name, last name, email, user role (PAL | MEMBER), balance
+
+visit request
+id, requestor id, fulfilled, transaction, tasks
 
 visit
-id, member id, date, minutes, tasks
+id, member id, pal id, date, minutes, tasks
 
-transaction
-id, member, pal, visit
-
-visit requests
-id, requestor id, fulfilled, transaction
+transaction line
+id, user id, type, amount, date
 
 initial thoughts and decisions:
 we would be better off splitting monthly allocations off from the user table (this isn't normalized since pals theoretically don't have allocations, but we'd have a single two entry table and may not be worth depending on scale), especially because transactions should grow at a much faster rate than users
@@ -20,7 +20,10 @@ going to let tasks begin as just a string and allow members to add whatever they
 we don't really need member id on the visit, but it'll make calculating remaining allocation easier
 I'm going to ignore passwords for now :)
 
+rather than viewing things as "monthly allocations" I will instead roll forward with the field as a "balance" that is reloaded via transaction
+decoupled the db values as well so transaction line items may originate from places other than a visit/etc
+
 
 Members request Visits through a Visit Request
 Visits are logged via Transactions and are between a Pal and a Member
-Visits deduct from a Member's monthly allotment for the month in which they are transacted
+Visits result in transaction line items which handle account settlement
