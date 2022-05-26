@@ -4,7 +4,7 @@ import com.example.visitservice.error.InvalidVisitRequestError;
 import com.example.visitservice.exception.InvalidRequestStateException;
 import com.example.visitservice.model.Visit;
 import com.example.visitservice.request.FulfillmentRequest;
-import com.example.visitservice.response.FulfillmentResponse;
+import com.example.visitservice.response.TransactionRecord;
 import com.example.visitservice.service.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,11 +32,9 @@ public class VisitController {
     }
 
     @PostMapping("/new")
-    public @ResponseBody FulfillmentResponse addVisitForRequest(@Valid @RequestBody FulfillmentRequest fulfillmentRequest) {
+    public @ResponseBody TransactionRecord addVisitForRequest(@Valid @RequestBody FulfillmentRequest fulfillmentRequest) {
         // we'll pass off to the service to handle the rest
-        final String recordLocator = visitService.handleVisitFulfillment(fulfillmentRequest);
-
-        return new FulfillmentResponse(recordLocator);
+        return visitService.handleVisitFulfillment(fulfillmentRequest);
     }
 
     @GetMapping("/{id}")

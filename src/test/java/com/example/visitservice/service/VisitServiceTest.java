@@ -6,6 +6,7 @@ import com.example.visitservice.model.VisitRequest;
 import com.example.visitservice.repository.VisitRepository;
 import com.example.visitservice.repository.VisitRequestRepository;
 import com.example.visitservice.request.FulfillmentRequest;
+import com.example.visitservice.response.TransactionRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -109,17 +110,18 @@ class VisitServiceTest {
     }
 
     @Test
-    void handleVisitFulfillment_returnsRecordLocatorWhenValidRequest() {
+    void handleVisitFulfillment_returnsRecordWhenValidRequest() {
         final FulfillmentRequest fulfillmentRequest = fulfillmentRequest();
         final VisitRequest visitRequest = visitRequest();
 
         Mockito.when(mockVisitRequestRepository.findById(ArgumentMatchers.eq(visitRequest.getId()))).thenReturn(Optional.of(visitRequest));
         Mockito.when(mockVisitRepository.save(ArgumentMatchers.any())).thenReturn(null);
-        Mockito.doNothing().when(mockPaymentService).handlePaymentsForVisit(ArgumentMatchers.any());
+        Mockito.when(mockPaymentService.handlePaymentsForVisit(ArgumentMatchers.any())).thenReturn(new TransactionRecord(1.0, 2.0, 3.0, "something"));
 
-        final String recordLocator = testService.handleVisitFulfillment(fulfillmentRequest);
+        final TransactionRecord actual = testService.handleVisitFulfillment(fulfillmentRequest);
 
-        assertNotNull(recordLocator);
+        assertNotNull(actual);
+        assertNotNull(actual.getRecordLocator());
     }
 
     @Test
