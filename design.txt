@@ -25,5 +25,5 @@ decoupled the db values as well so transaction line items may originate from pla
 
 
 Members request Visits through a Visit Request
-Visits are logged via Transactions and are between a Pal and a Member
+Visits are between a Pal and a Member
 Visits result in transaction line items which handle account settlement

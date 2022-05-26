@@ -1,6 +1,7 @@
 package com.example.visitservice.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.Column;
@@ -19,6 +20,7 @@ import java.time.LocalDate;
  */
 @AllArgsConstructor
 @Getter
+@Builder
 @Entity
 @Table(name = "visits")
 public class Visit {
@@ -40,6 +42,9 @@ public class Visit {
 
     @Column(name = "tasks")
     private String tasks;
+
+    @Column(name = "record_locator")
+    private String recordLocator;
 
     @PrePersist
     private void prePersist() {

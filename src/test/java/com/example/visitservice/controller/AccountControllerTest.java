@@ -118,7 +118,7 @@ class AccountControllerTest {
 
     @Test
     void getUserInfo_returnsNullWhenDoesntExist() throws Exception {
-        Mockito.when(mockRepository.findById(ArgumentMatchers.any())).thenReturn(null);
+        Mockito.when(mockRepository.findById(ArgumentMatchers.any())).thenReturn(Optional.ofNullable(null));
 
         mockMvc.perform(get("/account/6"))
                 .andExpect(status().isNotFound());

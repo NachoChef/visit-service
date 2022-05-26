@@ -47,7 +47,7 @@ class VisitRequestControllerTest {
 
     @Test
     void createNewVisitRequest_ReturnsRequestDetails() throws Exception {
-        final NewVisitRequest nve = new NewVisitRequest(1);
+        final NewVisitRequest nve = new NewVisitRequest(1, "some tasks");
         final VisitRequest expected = VisitRequest.fromRequest(nve);
 
         Mockito.when(mockRepository.save(ArgumentMatchers.any())).thenReturn(expected);
