@@ -47,4 +47,10 @@ public class VisitController {
     public @ResponseBody InvalidVisitRequestError handleException(InvalidRequestStateException e) {
         return new InvalidVisitRequestError(e.getMessage());
     }
+
+    @ExceptionHandler(NumberFormatException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public @ResponseBody InvalidVisitRequestError handleException(NumberFormatException e) {
+        return new InvalidVisitRequestError("Visit request id was not in a valid format!");
+    }
 }
