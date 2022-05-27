@@ -29,12 +29,12 @@ import javax.validation.Valid;
 public class AccountController {
     private final UserRepository userRepository;
 
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
     @Autowired
     public AccountController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
-    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @PostMapping("/member/create")
     public @ResponseBody User createMember(@Valid @RequestBody UserRequest userRequest) {

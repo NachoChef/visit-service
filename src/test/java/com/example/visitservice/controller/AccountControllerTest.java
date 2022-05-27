@@ -90,7 +90,7 @@ class AccountControllerTest {
         final User expectedUser = User.fromUserRequestAndRole(userRequest(), User.UserRole.PAL);
         Mockito.when(mockRepository.save(ArgumentMatchers.any())).thenReturn(expectedUser);
 
-        mockMvc.perform(post("/account/member/create")
+        mockMvc.perform(post("/account/pal/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userRequest())))
                 .andExpect(status().isOk())
