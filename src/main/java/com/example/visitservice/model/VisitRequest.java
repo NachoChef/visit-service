@@ -4,6 +4,7 @@ import com.example.visitservice.request.NewVisitRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
  * Request entity, allows members to request visits that will be logged in transactions
  */
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Builder
 @Entity

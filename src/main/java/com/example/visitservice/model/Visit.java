@@ -3,6 +3,7 @@ package com.example.visitservice.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +20,7 @@ import java.time.LocalDate;
  * @author justinjones
  */
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Builder
 @Entity

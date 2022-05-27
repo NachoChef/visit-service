@@ -4,12 +4,19 @@ import com.example.visitservice.request.UserRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.AttributeConverter;
 import javax.persistence.Column;
+import javax.persistence.Converter;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import java.util.stream.Stream;
 
 import static javax.persistence.GenerationType.AUTO;
 
@@ -19,6 +26,7 @@ import static javax.persistence.GenerationType.AUTO;
  * @author justinjones
  */
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Builder
 @Entity
@@ -32,13 +40,20 @@ public class User {
     public enum UserRole {
         // I will go with the assumption that pals do not also receive visits
         // modifying that would be easy enough to encapsulate here with additional params (visitable, etc)
-        MEMBER("member"),
-        PAL("pal");
+        MEMBER("MEMBER"),
+        PAL("PAL");
 
         private final String userType;
 
         UserRole(String type) {
             this.userType = type;
+        }
+
+        public UserRole fromString(String s) {
+            return Stream.of(UserRole.values())
+                    .filter(c -> c.asString().equals(s))
+                    .findFirst()
+                    .orElseThrow(IllegalArgumentException::new);
         }
 
         public String asString() {
@@ -67,6 +82,7 @@ public class User {
     private String email;
 
     @Column(name = "user_role")
+    @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
     @Column(name = "balance")
